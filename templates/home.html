@@ -9,6 +9,17 @@
     <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../static/css/index.css" rel="stylesheet" />
     <link rel="stylesheet" href="../static/css/my-style.css" />
+    <style>
+      #table_price tr:nth-child(2n+0){background-color:#FAEBD7;}
+      #table_price tr:nth-child(2n+1){background-color:#FFE4B5;}
+      #table_price tr:nth-child(n){
+        width: 100%;
+        border-top: 2px solid #444444;
+        border: 2px solid #444444;
+        border-collapse: collapse;
+      }
+    </style>
+   
   </head>
   <body>
     <div class="jumbotron jumbotron-fluid" id="HomeSection">
@@ -63,7 +74,7 @@
       </div>
       <div class="row">
         <div id="priceTable"></div>
-        <table style="width: 100%">
+        <table style="width: 100%" id="table_price" >
           <thead id="thead"></thead>
           <tbody id="tbody"></tbody>
         </table>
@@ -77,12 +88,14 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../static/js/jquery-1.11.3.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
+     
     <script>
       var selList = [];
       var selQuery = '';
       var gdays = 30;
 
       function selectStock(btnObj) {
+        
         var val = btnObj.value;
         var pos = selList.indexOf(val);
         if (pos != -1) {
@@ -128,13 +141,13 @@
           let head = json.head;
           let rows = json.rows;
           //$('#priceTable').html('<div>' + JSON.stringify(json) + '</div>');
-          let tabHeadRow = '<td style="text-align:right;">date</td>';
+          let tabHeadRow = '<td style="text-align:center; padding: 10px; font-weight:bold;  border: 2px solid #444444;">date</td>';
           let selCols = [];
           for (let j = 0; j < head.length; j++) {
             //console.log('head[j]=', head[j]);
             if (selList.includes(head[j])) {
               selCols.push(j);
-              tabHeadRow += '<td style="text-align:right;">' + head[j] + '</td>';
+              tabHeadRow += '<td style="text-align:center; padding: 10px; font-weight:bold;  border: 2px solid #444444;">' + head[j] + '</td>';
             }
           }
           console.log('tabHeadRow=', tabHeadRow);
@@ -146,10 +159,10 @@
             // row count
             const da = rows[i][0];
 
-            let tabrow = '<tr>' + '<td style="text-align:right;">' + da + '</td>';
+            let tabrow = '<tr>' + '<td style="text-align:center; padding: 10px;  border: 2px solid #444444;">' + da + '</td>';
             for (let j = 0; j < selCols.length; j++) {
               // col count
-              tabrow += '<td style="text-align:right;">' + rows[i][selCols[j]] + '</td>';
+              tabrow += '<td style="text-align:center; padding: 10px;  border: 2px solid #444444;">' + rows[i][selCols[j]] + '</td>';
             }
             tabrow += '</tr>';
             tabRows += tabrow;
